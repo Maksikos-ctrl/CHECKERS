@@ -1,30 +1,56 @@
 import pygame
 import os
-
-board = pygame.image.load(os.path.join("img", "board_alt.png"))
-
-b_bishop = pygame.image.load(os.path.join("img", "black_bishop.png"))
-b_king = pygame.image.load(os.path.join("img", "black_king.png"))
-b_knight = pygame.image.load(os.path.join("img", "black_knight.png"))
-b_pawn = pygame.image.load(os.path.join("img", "black_pawn.png"))
-b_queen = pygame.image.load(os.path.join("img", "black_queen.png"))
-b_rook = pygame.image.load(os.path.join("img", "black_rook.png"))
+from piece import Bishop
+from board import Board
 
 
+DIR = os.path.dirname(os.path.realpath(__file__))
+IMG_DIR = os.path.join(DIR, "img")
 
-w_bishop = pygame.image.load(os.path.join("img", "white_bishop.png"))
-w_king = pygame.image.load(os.path.join("img", "white_king.png"))
-w_knight = pygame.image.load(os.path.join("img", "white_knight.png"))
-w_pawn = pygame.image.load(os.path.join("img", "white_pawn.png"))
-w_queen = pygame.image.load(os.path.join("img", "white_queen.png"))
-w_rook = pygame.image.load(os.path.join("img", "white_rook.png"))
+board = pygame.transform.scale(pygame.image.load(os.path.join(IMG_DIR, "board_alt.png")), (750, 750))
+rect = (113, 113, 525, 525)
 
+def draw_gameWindow():
+    global window
 
-black = [b_bishop, b_king, b_knight, b_pawn, b_queen, b_rook]
+    window.blit(board, (0,0))
+    bo = Board(8, 8) # 8 X 8
 
-white = [w_bishop, w_king, w_knight, w_pawn, w_queen, w_rook]
+    bo.draw(window)
+    
 
-
-
-def draw_gamewindow():
+   
     pygame.display.update()
+
+
+
+def main():
+  
+    
+
+    clock  = pygame.time.Clock()
+    run = True
+    while run:
+        clock.tick(10)
+
+        draw_gameWindow()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                quit()
+                pygame.quit()
+
+            if event.type == pygame.MOUSEMOTION:
+                pass
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                    pass
+
+
+
+width = 750
+height = 750     
+window = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Chess in PyGame")
+main()
