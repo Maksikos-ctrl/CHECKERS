@@ -32,10 +32,10 @@ W = []
 
 
 for img in black:
-    B.append(pygame.transform.scale(img, (65,65)))
+    B.append(pygame.transform.scale(img, (55,65)))
 
 for img in white:
-    W.append(pygame.transform.scale(img, (65,65)))
+    W.append(pygame.transform.scale(img, (55,55)))
 
 class Piece:
     img = -1
@@ -52,19 +52,26 @@ class Piece:
     def move(self):
       pass
 
+
     def is_selected(self):
       return self.selected
 
     def draw(self, win):
-      if self.color == "white":  
-          drawThis = W[self.img] 
-      else:     
-          drawThis = B[self.img] 
+       if self.color == "white":  
+           drawThis = W[self.img] 
+       else:     
+           drawThis = B[self.img] 
 
-      x = round(self.startX + (self.column * self.rect[2] / 8))   # 8 X 8  
-      y = round(self.startY + (self.row * self.rect[2] / 8))
 
-      win.blit(drawThis, (x, y))
+     
+       
+       x = 5 + round(self.startX + (self.column * self.rect[2] / 8))   # 8 X 8  
+       y = 5 + round(self.startY + (self.row * self.rect[3] / 8))   
+
+       if self.selected:    
+           pygame.draw.rect(win, (255,0,0), (x, y, 55, 55), 2)  
+
+       win.blit(drawThis, (x, y))
 
 
 

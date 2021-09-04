@@ -11,7 +11,7 @@ board = pygame.transform.scale(pygame.image.load(os.path.join(IMG_DIR, "board_al
 rect = (113, 113, 525, 525)
 
 def draw_gameWindow():
-    global window
+    global window, bo 
 
     window.blit(board, (0,0))
     bo = Board(8, 8) # 8 X 8
@@ -23,11 +23,27 @@ def draw_gameWindow():
     pygame.display.update()
 
 
+def clickOnFigure(pos):
+
+    """
+    :return: pos (x, y) in range 0-7 0-7
+    """
+
+    x = pos[0]
+    y = pos[1]
+    if rect[0] < x < rect[0] + rect[2]:
+        if rect[1] < y < rect[1] + rect[3]:
+            divX = x - rect[0]
+            divY = y - rect[0]
+            i = int(divX / (rect[2] / 8)) 
+            j = int(divY / (rect[3] / 8)) 
+            print(i, j)
+
 
 def main():
-  
-    
 
+    global bo
+    bo = Board(8, 8)
     clock  = pygame.time.Clock()
     run = True
     while run:
@@ -35,7 +51,7 @@ def main():
 
         draw_gameWindow()
 
-        for event in pygame.event.get():
+        for event in pygame.event.get():    
             if event.type == pygame.QUIT:
                 run = False
                 quit()
@@ -45,7 +61,10 @@ def main():
                 pass
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                    pass
+                pos = pygame.mouse.get_pos()
+                i, j = clickOnFigure(pos);
+                bo.select(i, j)
+
 
 
 
