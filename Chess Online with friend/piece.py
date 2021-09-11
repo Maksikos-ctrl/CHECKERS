@@ -49,7 +49,7 @@ class Piece:
       self.color = color
       self.selected = False
       
-    def move(self):
+    def actual_moves(self):
       pass
 
 
@@ -80,18 +80,105 @@ class Bishop(Piece):
     img = 0 
 
 class King(Piece):
-    img = 1   
+    img = 1  
+
+    def actual_moves(self, board):
+        r = self.row
+        c = self.column
+
+        moves = []
+
+        # TOP LEFT
+        if r < 7:
+           if c > 0:
+               moves.append((r-1, c-1))
+
+        # Top middle
+           moves.append((r-1, c))
+
+
+        # Top right
+           if c < 7:
+            moves.append((r-1, c+1))   
+
+            
+            
+        
 
 
 class Knight(Piece):
     img = 2 
 
+    def actual_moves(self, board):
+        r = self.row
+        c = self.column
+
+        moves = []
+
+
+        # down left
+        if r < 6 and c > 0:
+            p = board[r+2][c-1]
+            if p == 0:
+                moves.append((c-1, r+2)) 
+        
+        # up left
+        if r > 1 and c > 0:
+            p = board[r-2][c-1]
+            if p == 0:
+                moves.append((c-1, r-2)) 
+
+        # down right
+        if r < 6 and c < 7:
+            p = board[r+2][c+1]
+            if p == 0:
+                moves.append((c+1, r+2))            
+
+        # Up right 
+        if r > 2 and c < 7:
+            p = board[r-2][c+1]
+        if p == 0:
+            moves.append((c+1, r-2))               
+                
+        return moves     
+
+
 class Pawn(Piece):
     img = 3 
+    
+    def __init__(self, row, col, color):
+        super().__init__(row, col, color)  # The super() function returns an object that represents the parent class.
+        self.first = True
+        self.queen = False
+
+    def actual_moves(self, board):
+        r = self.row
+        c = self.column
+
+        moves = []
+
+        if self.first:
+            if r < 6: 
+                p = board[r+1][c]
+                if p == 0:
+                    moves.append((c, c+2))
+
+        if r < 7:
+            p = board[r+1][c]
+            if p == 0:
+                moves.append((r, c+1)) 
+                
+        return moves                      
+                    
 
 
 class Queen(Piece):
     img = 4    
+
+    def move(self, board):
+        pass
+
+
 
 
 class Rook(Piece):

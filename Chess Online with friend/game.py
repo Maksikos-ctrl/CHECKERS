@@ -27,6 +27,7 @@ def clickOnFigure(pos):
 
     """
     :return: pos (x, y) in range 0-7 0-7
+    
     """
 
     x = pos[0]
