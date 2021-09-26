@@ -56,17 +56,20 @@ class Piece:
     def is_selected(self):
       return self.selected
 
-    def draw(self, win):
+    def draw(self, win, board):
        if self.color == "white":  
            drawThis = W[self.img] 
        else:     
            drawThis = B[self.img] 
 
+       moves = self.actual_moves(board)
 
-     
-       
-       x = 5 + round(self.startX + (self.column * self.rect[2] / 8))   # 8 X 8  
-       y = 5 + round(self.startY + (self.row * self.rect[3] / 8))   
+       for move in moves:
+            x = 33 + round(self.startX + (move[0] * self.rect[2] / 8))   # 8 X 8  
+            y = 33 + round(self.startY + (move[1] * self.rect[3] / 8))  
+            pygame.draw.circle(win, (255, 0, 0), 10) # R = 10 
+         
+    
 
        if self.selected:    
            pygame.draw.rect(win, (255,0,0), (x, y, 55, 55), 2)  
@@ -77,7 +80,11 @@ class Piece:
 
 
 class Bishop(Piece):
-    img = 0 
+    img = 0
+
+    def actual_moves(self, board):
+        pass
+        
 
 class King(Piece):
     img = 1  
@@ -88,21 +95,43 @@ class King(Piece):
 
         moves = []
 
+      
+        if r > 0:
         # TOP LEFT
-        if r < 7:
            if c > 0:
-               moves.append((r-1, c-1))
+               moves.append((c-1, r-1, ))
 
         # Top middle
-           moves.append((r-1, c))
+           moves.append((c, r-1, ))
 
 
         # Top right
            if c < 7:
-            moves.append((r-1, c+1))   
+            moves.append((c+1, r-1, ))  
+            
+        if r < 7:
+            # BOTTOM LEFT
+            if c > 0:
+                moves.append((c-1, r + 1, ))
 
+            # BOTTOM MIDDLE
+            moves.append((c, r+1))    
+
+            # BOTTOM RIGHT
+            if c < 7:
+                moves.append((c+1, r+1))   
+
+        # MIDDLE LEFT
+        if c > 0:
+            moves.append((c-1, r))  
+
+        # MIDDLE RIGHT
+        if c < 7:
+            moves.append((c+1, r))     
             
-            
+        return moves                       
+                 
+
         
 
 
@@ -176,11 +205,64 @@ class Queen(Piece):
     img = 4    
 
     def move(self, board):
-        pass
+       ''' r = self.row
+        c = self.column
 
+        moves = []
 
+        currentCol = c
+       # currentCol = 
+        for row in range(0, 8):
+            if currentCol -1 >= 0:
+                m1 = board[row][currentCol-1]
+
+            if currentCol +1 < 7:     
+                m2 = board[row][currentCol+1]
+
+            currentCol += 1 '''
+
+       return []
 
 
 class Rook(Piece):
     img = 5
- 
+
+    def actual_moves(self, board):
+        r = self.row
+        c = self.column
+
+        moves = []
+
+        # UP
+        for x in range(r, -1,-1):
+            p = board[r][c]
+            if p == 0:
+                moves.append((c, x))
+                break
+           
+
+        # DOWN
+        for x in range(r, 8, 1):
+            p = board[r][c]
+            if p == 0:  
+                moves.append((c, x))
+                break
+            
+
+        # LEFT
+        for x in range(c, -1, -1):
+            p = board[r][c]
+            if p == 0:  
+                moves.append((x, c))
+                break
+
+        # RIGHT
+        for x in range(c, 8, 1):
+            p = board[r][c]
+            if p == 0:  
+                moves.append((x, c))
+                break
+
+        return moves     
+
+

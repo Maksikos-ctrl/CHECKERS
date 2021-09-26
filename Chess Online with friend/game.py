@@ -16,7 +16,7 @@ def draw_gameWindow():
     window.blit(board, (0,0))
     bo = Board(8, 8) # 8 X 8
 
-    bo.draw(window)
+    bo.draw(window, bo.board)
     
 
    

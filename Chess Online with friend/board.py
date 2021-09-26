@@ -1,3 +1,4 @@
+from os import stat
 from piece import Bishop
 from piece import King
 from piece import Rook
@@ -59,18 +60,26 @@ class Board:
         self.board[6][7] = Pawn(6,7, "white")
         print(self.board)
 
-    def draw(self, window):
+    def draw(self, window, board):
         for r in range(self.rows):
             for c in range(self.columns):
                 if self.board[r][c] != 0:
-                    self.board[r][c].draw(window)  
+                    self.board[r][c].draw(window, board)  
 
 
-    def select(self, r, c):
+    def select(self, col, row):
         for r in range(self.rows):
             for c in range(self.columns):
                 if self.board[r][c] != 0:
                     self.board[r][c].selected = False    
                              
         if self.board[row][col] != 0:
-            self.board[r][c].selected = True            
+            self.board[row][col].selected = True            
+
+
+    def moves(self, start, end):
+        removed = self.board[end[1][end[0]]]
+        self.board[end[1]][end[0]] = self.board[start[1]][start[0]]      
+        self.board[start[1]][start[0]] = 0
+
+        return removed
