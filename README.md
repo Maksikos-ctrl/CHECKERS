@@ -1,5 +1,5 @@
 
-# CHESS
+# CHECKERS
 
 ## TODO
 make the chess table, a simple approach for this is to give each unit a number
