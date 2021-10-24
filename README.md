@@ -6,9 +6,7 @@ make the chess table, a simple approach for this is to give each unit a number
 
 
 ## How it looks like
-![Знімок екрана (169)](https://user-images.githubusercontent.com/69985852/132105735-61860e29-9348-4004-8819-6334b648d281.png)
-
-
+![Знімок екрана (175)](https://user-images.githubusercontent.com/69985852/138606296-586db621-5713-40ad-90a1-e59b87991278.png)
 
 ## CRITICAL 
 nothing to see here.
